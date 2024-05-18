@@ -3,7 +3,7 @@ module "metric_alarm" {
   version = "5.3.1"
 
   alarm_name          = "${module.label.id}-"
-  alarm_description   = "Errors in ${module.lambdas.lambda_authors_lambda_function_name}"
+  alarm_description   = "Errors found"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   threshold           = 1
@@ -22,6 +22,18 @@ module "metric_alarm" {
     "courses" = {
       FunctionName = "${module.lambdas.lambda_courses_lambda_function_name}"
     },
+    "get-course" = {
+      FunctionName = "${module.lambdas.lambda_get_course_lambda_function_name}"
+    },
+    "save-course" = {
+      FunctionName = "${module.lambdas.lambda_save_course_lambda_function_name}"
+    },
+    "update-course" = {
+      FunctionName = "${module.lambdas.lambda_update_course_lambda_function_name}"
+    },
+    "delete-course" = {
+      FunctionName = "${module.lambdas.lambda_delete_course_lambda_function_name}"
+    }
   }
 
   alarm_actions = [module.notify_slack.slack_topic_arn]
